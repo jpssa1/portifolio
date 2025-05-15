@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:portifolio/home_page/sections/section_container.dart';
 
 class TechnologiesSection extends StatelessWidget {
   TechnologiesSection({super.key});
@@ -59,14 +60,13 @@ class TechnologiesSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 40),
+    return SectionContainer(
       child: Column(
         children: [
           const SizedBox(height: 20),
           const Text(
             'Ferramentas e tecnologias que domino e utilizo em meus projetos',
-            style: TextStyle(fontSize: 16, color: Colors.white),
+            style: TextStyle(fontSize: 18, color: Colors.white),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 40),
@@ -120,7 +120,7 @@ class _TechItemState extends State<_TechItem> {
                 borderRadius: BorderRadius.circular(15),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
+                    color: Colors.black.withValues(alpha: 0.1),
                     blurRadius: 10,
                     offset: const Offset(0, 5),
                   ),

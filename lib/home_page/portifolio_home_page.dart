@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 import 'package:portifolio/home_page/sections/about_section.dart';
 import 'package:portifolio/home_page/sections/contact_section.dart';
@@ -42,99 +41,11 @@ class _PortfolioHomePageState extends State<PortfolioHomePage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 4,
-        backgroundColor: Color(0xFF0F2027),
+        centerTitle: true,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        backgroundColor: Color(0xFF121212),
         title: const Text('João Pedro Sousa A. | Portfólio'),
-        actions: [
-          // Barra com logos das tecnologias
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                // Logo Flutter
-                IconButton(
-                  icon: SvgPicture.network(
-                    height: 30,
-                    'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flutter/flutter-original.svg',
-                  ),
-                  onPressed: () {},
-                ),
-                // Logo Dart
-                IconButton(
-                  icon: SvgPicture.network(
-                    height: 30,
-                    'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/dart/dart-original.svg',
-                  ),
-                  onPressed: () {},
-                ),
-                // Logo GitHub
-                IconButton(
-                  icon: SvgPicture.network(
-                    height: 30,
-                    'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg',
-                  ),
-                  onPressed: () {},
-                ),
-                // Logo Firebase
-                IconButton(
-                  icon: SvgPicture.network(
-                    height: 30,
-                    'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg',
-                  ),
-                  onPressed: () {},
-                ),
-                // Logo JavaScript
-                IconButton(
-                  icon: SvgPicture.network(
-                    height: 30,
-                    'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg',
-                  ),
-                  onPressed: () {},
-                ),
-                // Logo Python
-                IconButton(
-                  icon: SvgPicture.network(
-                    height: 30,
-                    'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg',
-                  ),
-                  onPressed: () {},
-                ),
-                // logo html
-                IconButton(
-                  icon: SvgPicture.network(
-                    height: 30,
-                    'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg',
-                  ),
-                  onPressed: () {},
-                ),
-                //logo css
-                IconButton(
-                  icon: SvgPicture.network(
-                    height: 30,
-                    'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg',
-                  ),
-                  onPressed: () {},
-                ),
-                //logo git
-                IconButton(
-                  icon: SvgPicture.network(
-                    height: 30,
-                    'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg',
-                  ),
-                  onPressed: () {},
-                ),
-                //logo supabase
-                IconButton(
-                  icon: SvgPicture.network(
-                    height: 30,
-                    'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/supabase/supabase-original.svg',
-                  ),
-                  onPressed: () {},
-                ),
-              ],
-            ),
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         child: FadeTransition(
@@ -142,9 +53,10 @@ class _PortfolioHomePageState extends State<PortfolioHomePage>
           child: Column(
             children: [
               const HeroSection(),
-              const AboutSection(),
+
               TechnologiesSection(),
               ProjectsSection(),
+              const AboutSection(),
               const ContactSection(),
               const FooterSection(),
             ],

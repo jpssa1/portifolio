@@ -2,29 +2,56 @@ import 'package:flutter/material.dart';
 import 'package:portifolio/home_page/sections/section_container.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class ContactSection extends StatelessWidget {
+class ContactSection extends StatefulWidget {
   const ContactSection({super.key});
 
-  // Função otimizada para web
+  @override
+  State<ContactSection> createState() => _ContactSectionState();
+}
+
+class _ContactSectionState extends State<ContactSection> {
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _messageController = TextEditingController();
+
   Future<void> _launchWhatsApp() async {
-    const phoneNumber = '5598991791100'; // Substitua pelo seu número real
+    const phoneNumber = '5598991791100';
     const message = 'Olá, vim pelo seu portfólio!';
     final url = Uri.parse(
       'https://wa.me/$phoneNumber?text=${Uri.encodeComponent(message)}',
     );
 
     try {
-      await launchUrl(
-        url,
-        mode: LaunchMode.externalApplication, // Fundamental para web
-      );
+      await launchUrl(url, mode: LaunchMode.externalApplication);
     } catch (e) {
-      // Fallback para WhatsApp Web se o direct link falhar
       await launchUrl(
         Uri.parse(
           'https://web.whatsapp.com/send?phone=$phoneNumber&text=${Uri.encodeComponent(message)}',
         ),
         mode: LaunchMode.externalApplication,
+      );
+    }
+  }
+
+  Future<void> _sendEmail() async {
+    final name = _nameController.text.trim();
+    final email = _emailController.text.trim();
+    final message = _messageController.text.trim();
+
+    final uri = Uri(
+      scheme: 'mailto',
+      path: 'jpssa1@hotmail.com', // <-- Substitua pelo seu email real
+      queryParameters: {
+        'subject': 'Contato do Portfólio - $name',
+        'body': 'Nome: $name\nEmail: $email\nMensagem: $message',
+      },
+    );
+
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Não foi possível abrir o e-mail.')),
       );
     }
   }
@@ -40,12 +67,10 @@ class ContactSection extends StatelessWidget {
             style: TextStyle(
               fontSize: 28,
               fontWeight: FontWeight.bold,
-              color: Colors.white, // Adicionei cor para melhor contraste
+              color: Colors.white,
             ),
           ),
           const SizedBox(height: 20),
-
-          // Botão do WhatsApp melhorado
           Center(
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
@@ -84,8 +109,6 @@ class ContactSection extends StatelessWidget {
           const SizedBox(height: 30),
           const Divider(color: Color(0xFF2C5364)),
           const SizedBox(height: 30),
-
-          // Formulário de contato
           _buildContactForm(),
           const SizedBox(height: 100),
         ],
@@ -96,17 +119,25 @@ class ContactSection extends StatelessWidget {
   Widget _buildContactForm() {
     return Column(
       children: [
-        TextFormField(decoration: _inputDecoration('Seu nome')),
+        TextFormField(
+          controller: _nameController,
+          decoration: _inputDecoration('Seu nome'),
+        ),
         const SizedBox(height: 16),
         TextFormField(
+          controller: _emailController,
           decoration: _inputDecoration('Email'),
           keyboardType: TextInputType.emailAddress,
         ),
         const SizedBox(height: 16),
-        TextFormField(maxLines: 5, decoration: _inputDecoration('Mensagem')),
+        TextFormField(
+          controller: _messageController,
+          maxLines: 5,
+          decoration: _inputDecoration('Mensagem'),
+        ),
         const SizedBox(height: 24),
         Align(
-          alignment: Alignment.centerRight,
+          alignment: Alignment.centerLeft,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF2C5364),
@@ -115,9 +146,7 @@ class ContactSection extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
               ),
             ),
-            onPressed: () {
-              // Adicione aqui a lógica para enviar o formulário
-            },
+            onPressed: _sendEmail,
             child: const Text(
               'Enviar Mensagem',
               style: TextStyle(fontSize: 16, color: Colors.white),
@@ -140,7 +169,7 @@ class ContactSection extends StatelessWidget {
         borderSide: BorderSide(color: Color(0xFF2C5364), width: 1),
       ),
       filled: true,
-      fillColor: Colors.white.withOpacity(0.1),
+      fillColor: Colors.white.withOpacity(0.05),
       contentPadding: const EdgeInsets.all(16),
     );
   }

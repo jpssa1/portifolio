@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
 class HeroSection extends StatefulWidget {
   const HeroSection({super.key});
@@ -70,19 +71,31 @@ class _HeroSectionState extends State<HeroSection>
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CircleAvatar(
-                  radius: 100,
-                  backgroundColor: Colors.transparent,
-                  child: ClipOval(
-                    child: Image.asset("assets/images/perfil.png", width: 200),
-                  ),
+                AnimatedTextKit(
+                  repeatForever: true,
+                  animatedTexts: [
+                    TyperAnimatedText(
+                      'Olá, sou o João Pedro.',
+                      textStyle: const TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      speed: const Duration(milliseconds: 80),
+                    ),
+                    TyperAnimatedText(
+                      'Bem-vindo ao\nmeu portfólio.',
+                      textStyle: const TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                        height: 1.2,
+                      ),
+                      speed: const Duration(milliseconds: 80),
+                    ),
+                  ],
+                  isRepeatingAnimation: true,
+                  pause: const Duration(milliseconds: 800),
                 ),
-                const SizedBox(height: 20),
-                const Text(
-                  'João Pedro Sousa A.',
-                  style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 40),
                 const Text(
                   'Desenvolvedor Mobile Flutter',
                   style: TextStyle(fontSize: 20),
@@ -137,7 +150,10 @@ class WaveBackgroundPainter extends CustomPainter {
     final paint =
         Paint()
           ..shader = LinearGradient(
-            colors: [color.withOpacity(0.5), color.withOpacity(0.1)],
+            colors: [
+              color.withValues(alpha: 0.5),
+              color.withValues(alpha: 0.1),
+            ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ).createShader(Rect.fromLTWH(0, 0, size.width, size.height));

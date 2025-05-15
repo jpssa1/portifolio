@@ -14,17 +14,11 @@ class MyPortfolioApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'João Pedro Sousa S. Andrade | Desenvolvedor Flutter',
-      themeMode: ThemeMode.system,
-      theme: ThemeData.light().copyWith(
-        scaffoldBackgroundColor: const Color(0xFF121212),
-        primaryColor: Colors.deepPurpleAccent,
-        inputDecorationTheme: const InputDecorationTheme(
-          border: OutlineInputBorder(),
-        ),
-      ),
+      themeMode: ThemeMode.dark,
+
       darkTheme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: const Color(0xFF121212),
-        primaryColor: Colors.deepPurpleAccent,
+
         inputDecorationTheme: const InputDecorationTheme(
           border: OutlineInputBorder(),
         ),
